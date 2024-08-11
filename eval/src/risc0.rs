@@ -11,6 +11,8 @@ use crate::{
 
 pub struct Risc0Evaluator;
 
+pub const SHARD_SIZE:u32 = 20;
+
 impl Risc0Evaluator {
     pub fn eval(args: &EvalArgs) -> PerformanceReport {
         if args.hashfn != HashFnId::Poseidon {
@@ -26,13 +28,13 @@ impl Risc0Evaluator {
         let env = if args.program == ProgramId::Reth {
             let input = get_reth_input(args);
             ExecutorEnv::builder()
-                .segment_limit_po2(args.shard_size as u32)
+                .segment_limit_po2(SHARD_SIZE)
                 .write(&input)
                 .expect("Failed to write input to executor")
                 .build()
                 .unwrap()
         } else {
-            ExecutorEnv::builder().segment_limit_po2(args.shard_size as u32).build().unwrap()
+            ExecutorEnv::builder().segment_limit_po2(SHARD_SIZE).build().unwrap()
         };
 
         // Compute some statistics.
@@ -44,13 +46,13 @@ impl Risc0Evaluator {
         let env = if args.program == ProgramId::Reth {
             let input = get_reth_input(args);
             ExecutorEnv::builder()
-                .segment_limit_po2(args.shard_size as u32)
+                .segment_limit_po2(SHARD_SIZE)
                 .write(&input)
                 .expect("Failed to write input to executor")
                 .build()
                 .unwrap()
         } else {
-            ExecutorEnv::builder().segment_limit_po2(args.shard_size as u32).build().unwrap()
+            ExecutorEnv::builder().segment_limit_po2(SHARD_SIZE).build().unwrap()
         };
         let opts = ProverOpts::default();
         let prover = get_prover_server(&opts).unwrap();
