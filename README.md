@@ -78,6 +78,7 @@ Note for benchmarking the Reth program, you must also pass in a block number:
 
 ```sh
 ./eval.sh reth sp1 poseidon 22 benchmark 19409768
+./eval.sh tendermint sp1 poseidon 22 benchmark
 ```
 
 The inputs for these blocks have already been generated [here](./eval/cli/blocks/). You can add more
