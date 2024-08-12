@@ -11,7 +11,7 @@ use crate::{
 
 pub struct Risc0Evaluator;
 
-pub const SHARD_SIZE:u32 = 20;
+pub const SHARD_SIZE:u32 = 21;
 
 impl Risc0Evaluator {
     pub fn eval(args: &EvalArgs) -> PerformanceReport {

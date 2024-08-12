@@ -60,6 +60,7 @@ Example SP1:
 
 ```sh
 ./eval.sh fibonacci sp1 poseidon 22 benchmark
+./eval.sh tendermint sp1 poseidon 23 benchmark
 ```
 
 Example JOLT:
@@ -77,8 +78,8 @@ Example Risc0:
 Note for benchmarking the Reth program, you must also pass in a block number:
 
 ```sh
-./eval.sh reth sp1 poseidon 22 benchmark 19409768
-./eval.sh tendermint sp1 poseidon 22 benchmark
+./eval.sh reth sp1 poseidon 21 benchmark 19409768
+./eval.sh tendermint sp1 poseidon 21 benchmark
 ```
 
 The inputs for these blocks have already been generated [here](./eval/cli/blocks/). You can add more
