@@ -4,8 +4,8 @@ from itertools import product
 
 filename = "benchmark"
 trials = 1
-options_program = ['fibonacci',]
-options_prover = ["sp1"]
+options_program = ['tendermint',]
+options_prover = ["sp1", 'risc0']
 # options_prover = ["sp1", "risc0"]
 # options_program = ['loop', 'fibonacci', 'tendermint', 'reth1', 'reth2']
 # options_prover = ["sp1", "risc0"]
