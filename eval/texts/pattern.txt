@@ -1,0 +1,1 @@
+\b(and|all|management|emulated|the|blockchain|is|project|)\b

@@ -1,0 +1,18 @@
+[workspace]
+[package]
+name = "regex"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sp1-zkvm = { git = "https://github.com/succinctlabs/sp1", branch = "dev" }
+risc0-zkvm = { version = "=1.0.5", default-features = false, features = ["std"] }
+serde = { version = "1.0.204", default-features = false, features = ["derive"] }
+regex = "1.10.3"
+
+
+[features]
+risc0 = []
+sp1 = []

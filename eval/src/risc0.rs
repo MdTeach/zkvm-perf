@@ -11,7 +11,7 @@ use crate::{
 
 pub struct Risc0Evaluator;
 
-pub const SHARD_SIZE:u32 = 21;
+pub const SHARD_SIZE: u32 = 21;
 
 impl Risc0Evaluator {
     pub fn eval(args: &EvalArgs) -> PerformanceReport {
@@ -25,16 +25,27 @@ impl Risc0Evaluator {
 
         // If the program is Reth, read the block and set it as input. Otherwise, we assume other
         // benchmarking programs don't have input.
-        let env = if args.program == ProgramId::Reth {
-            let input = get_reth_input(args);
-            ExecutorEnv::builder()
-                .segment_limit_po2(SHARD_SIZE)
-                .write(&input)
-                .expect("Failed to write input to executor")
-                .build()
-                .unwrap()
-        } else {
-            ExecutorEnv::builder().segment_limit_po2(SHARD_SIZE).build().unwrap()
+        let env = match args.program {
+            ProgramId::Reth => {
+                let input = get_reth_input(args);
+                ExecutorEnv::builder()
+                    .segment_limit_po2(SHARD_SIZE)
+                    .write(&input)
+                    .expect("Failed to write input to executor")
+                    .build()
+                    .unwrap()
+            }
+            ProgramId::Regex => {
+                let data = std::str::from_utf8(include_bytes!("../texts/data.txt")).unwrap();
+
+                ExecutorEnv::builder()
+                    .segment_limit_po2(SHARD_SIZE)
+                    .write(&data)
+                    .expect("Failed to write input to executor")
+                    .build()
+                    .unwrap()
+            }
+            _ => ExecutorEnv::builder().segment_limit_po2(SHARD_SIZE).build().unwrap(),
         };
 
         // Compute some statistics.
@@ -43,16 +54,26 @@ impl Risc0Evaluator {
         let cycles = session.user_cycles;
 
         // Setup the prover.
-        let env = if args.program == ProgramId::Reth {
-            let input = get_reth_input(args);
-            ExecutorEnv::builder()
-                .segment_limit_po2(SHARD_SIZE)
-                .write(&input)
-                .expect("Failed to write input to executor")
-                .build()
-                .unwrap()
-        } else {
-            ExecutorEnv::builder().segment_limit_po2(SHARD_SIZE).build().unwrap()
+        let env = match args.program {
+            ProgramId::Reth => {
+                let input = get_reth_input(args);
+                ExecutorEnv::builder()
+                    .segment_limit_po2(SHARD_SIZE)
+                    .write(&input)
+                    .expect("Failed to write input to executor")
+                    .build()
+                    .unwrap()
+            },
+            ProgramId::Regex =>{
+                let input = std::str::from_utf8(include_bytes!("../texts/data.txt")).unwrap();
+                ExecutorEnv::builder()
+                    .segment_limit_po2(SHARD_SIZE)
+                    .write(&input)
+                    .expect("Failed to write input to executor")
+                    .build()
+                    .unwrap() 
+            }
+            _ => ExecutorEnv::builder().segment_limit_po2(SHARD_SIZE).build().unwrap(),
         };
         let opts = ProverOpts::default();
         let prover = get_prover_server(&opts).unwrap();

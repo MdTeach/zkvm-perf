@@ -25,13 +25,21 @@ impl SP1Evaluator {
         }
 
         // Get stdin.
-        let stdin = if args.program == ProgramId::Reth {
-            let input = get_reth_input(args);
-            let mut stdin = SP1Stdin::new();
-            stdin.write(&input);
-            stdin
-        } else {
-            SP1Stdin::new()
+        let stdin = match args.program {
+            ProgramId::Reth => {
+                let input = get_reth_input(args);
+                let mut stdin = SP1Stdin::new();
+                stdin.write(&input);
+                stdin
+            }
+            ProgramId::Regex=>{
+                let data = std::str::from_utf8(include_bytes!("../texts/data.txt")).unwrap();
+
+                let mut stdin = SP1Stdin::new();
+                stdin.write(&data);
+                stdin
+            },
+            _ => SP1Stdin::new(),
         };
 
         // Get the elf.

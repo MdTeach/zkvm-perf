@@ -8,6 +8,7 @@ pub enum ProgramId {
     Tendermint,
     Sha2Chain,
     Reth,
+    Regex,
 }
 
 /// An identifier used to select the prover to evaluate.
@@ -37,6 +38,7 @@ impl ProgramId {
             ProgramId::Tendermint => "tendermint".to_string(),
             ProgramId::Sha2Chain => "sha2-chain".to_string(),
             ProgramId::Reth => "reth".to_string(),
+            ProgramId::Regex => "regex".to_string(),
         }
     }
 }
