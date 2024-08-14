@@ -26,7 +26,8 @@ use regex::Regex;
 use std::collections::HashMap;
 
 fn main() {
-    let pattern = r"\b(and|all)\b".to_string();
+    // let pattern = r"\b(and|all)\b".to_string();
+    let pattern = r"\b(and|all|management|emulated|the|blockchain|is|project|)\b".to_string();
 
     #[cfg(feature = "sp1")]
     let text = sp1_zkvm::io::read::<String>();
